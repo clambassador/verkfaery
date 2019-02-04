@@ -10,13 +10,19 @@ using namespace ib;
 void parse(const vector<string>& lines, size_t startp, size_t endp) {
 	stringstream ss;
 
-	for (size_t i = startp; i < endp; ++i) {
+	for (size_t i = startp; i <= endp; ++i) {
 		bool pos = false;
 		if (lines[i].find("-") == string::npos) pos = true;
 		string h;
-		Tokenizer::extract("%x%t", lines[i], nullptr, &h);
+		int r = Tokenizer::extract("%x%t", lines[i], nullptr, &h);
+		if (!r) Tokenizer::extract("%x%s", lines[i], nullptr, &h);
+
 		if (h.length() == 1) h = "0" + h;
 		string val = Logger::dehexify(h);
+		if (val.length() != 1) {
+
+			Logger::error("% % %", val, h, val.length());
+		}
 		assert(val.length() == 1);
 		uint8_t c = (uint8_t) val[0];
 		if (!pos) c = 256 - c;
