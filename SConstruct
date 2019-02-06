@@ -2,6 +2,7 @@ import os
 
 tools = dict()
 tools['fylking.cc'] = 'fylking'
+tools['straumur.cc'] = 'straumur'
 
 PATH_TO_IB=".."
 common = Split(PATH_TO_IB + """/ib/libib.a
